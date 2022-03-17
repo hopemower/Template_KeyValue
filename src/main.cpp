@@ -5,6 +5,7 @@
 #include <string>
 
 using namespace std;
+const int kSize = 5;
 
 int main() {
 
@@ -70,6 +71,29 @@ int main() {
     }
 
     cout << "KeyValue Size: " << key.GetSize() << endl;
+
+    //testing empty method
+    KeyValue<int, int, kSize> key_value;
+
+    if (key_value.Empty())
+    {
+        cout << "Current Size of KeyValue " << key_value.GetSize() << endl; //should be 0
+        key_value.Add(7, 22);
+        cout << "Adding last value..." << endl;
+        if (!key_value.Empty())
+        {
+            cout << "Current Size of KeyValue " << key_value.GetSize() << endl; // should be 1
+            cout << "Removing Value at 7, new size of array: ";
+            key_value.RemoveOne(7);
+            cout << key_value.GetSize() << endl; // should be 0
+        }
+    }
+
+//    cout << "True or False: The KeyValue is empty: " << key_value.Empty() << endl;
+//    cout << key_value.GetSize() << endl;
+
+
+
 
     return 0;
 }

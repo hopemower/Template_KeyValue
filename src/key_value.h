@@ -29,12 +29,14 @@ public:
     bool Empty() const;
     bool RemoveOne(K key);
     int RemoveAll(K key);
-    friend std::ostream& operator << (std::ostream& out, const KeyValue<K, V, max_size>& rhs)
-    {
-        out << rhs.keys_[max_size] << ": " << rhs.values_[max_size] << std::endl;
+    friend std::ostream& operator << (std::ostream& out, const KeyValue<K, V, max_size>& rhs) {
+        K key;
+        for (int i = 0; i < max_size; ++i) {
+            out << rhs.keys_[i] << ": " << rhs.values_[i] << "\n";
+        }
+
         return out;
     }
-
 };
 
 /**
@@ -201,11 +203,12 @@ bool KeyValue<K, V, max_size>::Full() const
 template<typename K, typename V, int max_size>
 bool KeyValue<K, V, max_size>::RemoveOne(K key)
 {
-    if (FindIndex(key))
+    if (KeyExists(key))
     {
+        keys_[FindIndex(key)];
+        values_[FindIndex(key)];
         size_--;
-        keys_[size_];
-        values_[size_];
+        GetSize();
         return true;
     }
     else
@@ -230,10 +233,11 @@ int KeyValue<K, V, max_size>::RemoveAll(K key)
     for (int i = 0; i < max_size; ++i) {
         if (keys_[i] == key)
         {
-            size_--;
             i--;
             keys_[i];
             values_[i];
+            size_--;
+            GetSize();
             i += 2;
             index++;
         }
