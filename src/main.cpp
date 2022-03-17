@@ -58,6 +58,7 @@ int main() {
 
     if (key.RemoveOne(12)) {
         cout << "Removing Value at 12, new size of array: " << key.GetSize() << endl;
+        cout << "Current Array\n" << key << endl;
     }
     else
     {
@@ -66,8 +67,11 @@ int main() {
 
     try {
         cout << "RemovingAll function has removed " << key.RemoveAll(12) << " occurrences of the key 12." << endl;
+        cout << "Current Array\n" << key << endl;
         cout << "RemovingAll function has removed " << key.RemoveAll(12) << " occurrences of the key 12." << endl;
+        cout << "Current Array\n" << key << endl;
         cout << "RemovingAll function has removed " << key.RemoveAll(14) << " occurrences of the key 14." << endl;
+        cout << "Current Array\n" << key << endl;
     } catch (out_of_range e) {
         cout << e.what() << endl;
     }

@@ -70,7 +70,6 @@ void KeyValue<K, V, max_size>::Add(K key, V item)
     {
         throw std::out_of_range("The array is full, item was not added");
     }
-
     keys_[size_] = key;
     values_[size_] = item;
     size_++;
@@ -203,12 +202,14 @@ bool KeyValue<K, V, max_size>::Full() const
 template<typename K, typename V, int max_size>
 bool KeyValue<K, V, max_size>::RemoveOne(K key)
 {
-    int i = 0;
     if (KeyExists(key))
     {
-        i = FindIndex(key);
-        keys_[i] = keys_[i + 1];
-        values_[i] = values_[i + 1];
+        int i = FindIndex(key);
+        for (int j = 0; j < max_size; ++j) {
+            keys_[i] = keys_[i + 1];
+            values_[i] = values_[i + 1];
+            i++;
+        }
         size_--;
         return true;
     }
@@ -232,18 +233,11 @@ int KeyValue<K, V, max_size>::RemoveAll(K key)
 {
     int index = 0;
     for (int i = 0; i < max_size; ++i) {
-//        if (!KeyExists(key))
-//        {
-//            throw std::out_of_range("The key was not found.");
-//        }
-        if (keys_[i] == key && KeyExists(key))
+        if (keys_[i] == key)
         {
-            keys_[i] = keys_[i + 1];
-            values_[i] = values_[i + 1];
-            size_--;
+            RemoveOne(key);
             index++;
         }
-
     }
 
     return index;
