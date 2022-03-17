@@ -34,7 +34,6 @@ public:
         for (int i = 0; i < max_size; ++i) {
             out << rhs.keys_[i] << ": " << rhs.values_[i] << "\n";
         }
-
         return out;
     }
 };
