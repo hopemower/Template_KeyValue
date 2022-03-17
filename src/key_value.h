@@ -203,12 +203,13 @@ bool KeyValue<K, V, max_size>::Full() const
 template<typename K, typename V, int max_size>
 bool KeyValue<K, V, max_size>::RemoveOne(K key)
 {
+    int i = 0;
     if (KeyExists(key))
     {
-        keys_[FindIndex(key)];
-        values_[FindIndex(key)];
+        i = FindIndex(key);
+        keys_[i] = keys_[i + 1];
+        values_[i] = values_[i + 1];
         size_--;
-        GetSize();
         return true;
     }
     else
@@ -231,16 +232,18 @@ int KeyValue<K, V, max_size>::RemoveAll(K key)
 {
     int index = 0;
     for (int i = 0; i < max_size; ++i) {
-        if (keys_[i] == key)
+//        if (!KeyExists(key))
+//        {
+//            throw std::out_of_range("The key was not found.");
+//        }
+        if (keys_[i] == key && KeyExists(key))
         {
-            i--;
-            keys_[i];
-            values_[i];
+            keys_[i] = keys_[i + 1];
+            values_[i] = values_[i + 1];
             size_--;
-            GetSize();
-            i += 2;
             index++;
         }
+
     }
 
     return index;

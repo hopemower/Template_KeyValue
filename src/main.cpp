@@ -66,6 +66,8 @@ int main() {
 
     try {
         cout << "RemovingAll function has removed " << key.RemoveAll(12) << " occurrences of the key 12." << endl;
+        cout << "RemovingAll function has removed " << key.RemoveAll(12) << " occurrences of the key 12." << endl;
+        cout << "RemovingAll function has removed " << key.RemoveAll(14) << " occurrences of the key 14." << endl;
     } catch (out_of_range e) {
         cout << e.what() << endl;
     }
