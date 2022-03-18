@@ -204,11 +204,22 @@ bool KeyValue<K, V, max_size>::RemoveOne(K key)
 {
     if (KeyExists(key))
     {
-        int i = FindIndex(key);
-        keys_[i] = keys_[i + 1];
-        values_[i] = values_[i + 1];
-        size_--;
-        return true;
+        if (size_ == 1)
+        {
+            size_--;
+            return true;
+        }
+        else
+        {
+            int i = FindIndex(key);
+            for (int j = 0; j < max_size; ++j) {
+                keys_[i] = keys_[i + 1];
+                values_[i] = values_[i + 1];
+                i++;
+                size_ = j;
+            }
+            return true;
+        }
     }
     else
     {
@@ -229,13 +240,11 @@ template<typename K, typename V, int max_size>
 int KeyValue<K, V, max_size>::RemoveAll(K key)
 {
     int index = 0;
-    for (int i = 0; i < max_size; ++i) {
-        if (keys_[i] == key)
-        {
-            keys_[i] = keys_[i + 1];
-            values_[i] = values_[i + 1];
-            size_--;
+    for (int i = 0; i < size_; ++i) {
+        if (FindIndex(key) == i) {
+            RemoveOne(key);
             index++;
+            size_ -= index;
         }
     }
 

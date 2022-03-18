@@ -90,8 +90,9 @@ int main() {
         {
             cout << "Current Size of KeyValue " << key_value.GetSize() << endl; // should be 1
             cout << "Removing Value at 7, new size of array: ";
-            key_value.RemoveOne(7);
-            cout << key_value.GetSize() << endl; // should be 0
+            if (key_value.RemoveOne(7)) {
+                cout << key_value.GetSize() << endl; // should be 0
+            }
         }
     }
 
