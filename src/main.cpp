@@ -96,8 +96,5 @@ int main() {
         }
     }
 
-//    cout << "True or False: The KeyValue is empty: " << key_value.Empty() << endl;
-//    cout << key_value.GetSize() << endl;
-
     return 0;
 }

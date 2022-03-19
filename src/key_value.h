@@ -53,13 +53,13 @@ KeyValue<K, V, max_size>::KeyValue()
 }
 
 /**
- * @brief
+ * @brief - function to add values to array
  *
- * @tparam K
- * @tparam V
- * @tparam max_size
- * @param key
- * @param item
+ * @tparam K - variable for type key
+ * @tparam V - variable for type value
+ * @tparam max_size - users array max size
+ * @param key - key to be added
+ * @param item - item to be added
  */
 
 template<typename K, typename V, int max_size>
@@ -76,26 +76,26 @@ void KeyValue<K, V, max_size>::Add(K key, V item)
 }
 
 /**
- * @brief -
+ * @brief - function to find the current position of the given key
  *
- * @tparam K
- * @tparam V
- * @tparam max_size
- * @param key
- * @return
+ * @tparam K - variable for key
+ * @tparam V - variable for value
+ * @tparam max_size - users given max size of the array
+ * @param key - key to find the position of
+ * @return - the current position of key
  */
 
 template<typename K, typename V, int max_size>
 int KeyValue<K, V, max_size>::FindIndex(K key) const
 {
     int i = 0;
-    while (i < max_size) {
+    while (i < size_) {
         if (keys_[i] == key) {
             break;
         }
         i++;
     }
-    if (i < max_size) {
+    if (i < size_) {
         return i;
     }
     else
@@ -105,13 +105,13 @@ int KeyValue<K, V, max_size>::FindIndex(K key) const
 }
 
 /**
- * @brief
+ * @brief - function to check if the key exists in the current array
  *
- * @tparam K
- * @tparam V
- * @tparam max_size
- * @param key
- * @return
+ * @tparam K - variable for keys
+ * @tparam V - variable for values
+ * @tparam max_size - users max size
+ * @param key - key to check if it is in the array
+ * @return - true if the key is found or false if it is not
  */
 
 template<typename K, typename V, int max_size>
@@ -128,13 +128,13 @@ bool KeyValue<K, V, max_size>::KeyExists(K key) const
 }
 
 /**
- * @brief
+ * @brief - function to find the value at the current key
  *
- * @tparam K
- * @tparam V
- * @tparam max_size
- * @param key
- * @return
+ * @tparam K - variable for keys
+ * @tparam V - variable for values
+ * @tparam max_size - users given max size
+ * @param key - key to use index of for value
+ * @return - the value at the key's index
  */
 
 template<typename K, typename V, int max_size>
@@ -191,12 +191,13 @@ bool KeyValue<K, V, max_size>::Full() const
 }
 
 /**
+ * @brief - Function to remove one key value pair in the array
  *
- * @tparam K
- * @tparam V
- * @tparam max_size
- * @param key
- * @return
+ * @tparam K - variable for keys
+ * @tparam V - variable for values
+ * @tparam max_size - users given max size
+ * @param key - key to remove
+ * @return - true if key was removed, false if the key could not be found
  */
 
 template<typename K, typename V, int max_size>
@@ -204,22 +205,13 @@ bool KeyValue<K, V, max_size>::RemoveOne(K key)
 {
     if (KeyExists(key))
     {
-        if (size_ == 1)
-        {
-            size_--;
-            return true;
+        int i = FindIndex(key);
+        for (int j = i; j < size_ - 1; ++j) {
+            keys_[j] = keys_[j + 1];
+            values_[j] = values_[j + 1];
         }
-        else
-        {
-            int i = FindIndex(key);
-            for (int j = 0; j < max_size; ++j) {
-                keys_[i] = keys_[i + 1];
-                values_[i] = values_[i + 1];
-                i++;
-                size_ = j;
-            }
-            return true;
-        }
+        size_--;
+        return true;
     }
     else
     {
@@ -228,26 +220,22 @@ bool KeyValue<K, V, max_size>::RemoveOne(K key)
 }
 
 /**
+ * @brief - function to remove all given keys in the array
  *
- * @tparam K
- * @tparam V
- * @tparam max_size
- * @param key
- * @return
+ * @tparam K - variable for keys
+ * @tparam V - variable for value
+ * @tparam max_size - users given max size
+ * @param key - key to remove duplicates of
+ * @return - the number of keys that were removed
  */
 
 template<typename K, typename V, int max_size>
 int KeyValue<K, V, max_size>::RemoveAll(K key)
 {
     int index = 0;
-    for (int i = 0; i < size_; ++i) {
-        if (FindIndex(key) == i) {
-            RemoveOne(key);
-            index++;
-            size_ -= index;
-        }
+    while (RemoveOne(key)) {
+        index++;
     }
-
     return index;
 }
 
