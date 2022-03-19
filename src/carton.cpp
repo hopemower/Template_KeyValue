@@ -117,11 +117,11 @@ bool Carton::operator == (const Carton &rhs) const
 }
 
 /**
- * @brief
+ * @brief - function to add the << operator to carton
  *
- * @param out
- * @param rhs
- * @return
+ * @param out - variable for ostream passed by reference
+ * @param rhs - given carton to output
+ * @return - out
  */
 
 std::ostream& operator<< (std::ostream& out, const Carton& rhs)

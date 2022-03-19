@@ -1,8 +1,5 @@
 #include <iostream>
 #include "key_value.h"
-#include "carton.h"
-#include <array>
-#include <string>
 
 using namespace std;
 const int kSize = 5;
